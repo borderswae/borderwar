@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Border War</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Galaxy Background -->
+<div class="galaxy">
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="planet"></div>
+    <div class="comet"></div>
+</div>
+
+<header class="fade-in">
+    <div class="logo-title">
+        <img src="https://files.catbox.moe/mtneix.png" alt="Border War Logo" class="logo-small logo-pulse">
+        <h1 class="neon-text">Border War</h1>
+    </div>
+</header>
+
+<nav class="slide-down">
+    <button onclick="showMenu('support')">Support</button>
+    <button onclick="showMenu('army')">Army Buy</button>
+    <button onclick="window.location.href='https://discord.gg/u5BVGfrc8f'">Group</button>
+</nav>
+
+<!-- Support Menu -->
+<section id="support">
+    <h2 class="neon-text">Support</h2>
+    <p class="info-text">You can report hackers, request unbans, or contact support. Please include details and screenshots.</p>
+    <textarea id="supportText" placeholder="Write your support message..."></textarea>
+    <input type="file" id="supportPhoto" accept="image/*">
+    <button class="glow-btn" onclick="sendSupport()">Send</button>
+</section>
+
+<!-- Army Buy Menu -->
+<section id="army">
+    <h2 class="neon-text">Army Buy</h2>
+    <select id="armySelect">
+        <option value="">-- Select Army --</option>
+        <option value="CAMANDO">CAMANDO - $8 (Stock: 18)</option>
+        <option value="KLAHOS">KLAHOS - $5 (Stock: 14)</option>
+        <option value="DRTG">DRTG - $3 (Stock: 10)</option>
+    </select>
+    <button class="glow-btn" onclick="confirmArmy()">Payment</button>
+</section>
+
+<!-- Overlay Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content slide-up">
+        <p id="modalText"></p>
+        <button class="glow-btn" id="modalCopy">Copy Discord</button>
+        <button class="glow-btn" onclick="closeModal()">Go Back Home</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
