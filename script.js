@@ -1,27 +1,43 @@
-function showMenu(id) {
-    document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+let selectedArmy = null;
+let armyPrice = 0;
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  if (id !== 'home') document.getElementById(id).classList.add('active');
 }
-function sendSupport() {
-    const text = document.getElementById('supportText').value;
-    const file = document.getElementById('supportPhoto').files[0];
-    if (!text && !file) { alert("Please add a message or an image."); return; }
-    alert("⚠ Direct image upload to Discord is blocked by browsers. Use a server to forward this request.");
+
+function selectArmy(name, price, stock) {
+  selectedArmy = name;
+  armyPrice = price;
+  document.getElementById('armyInfo').innerText = `${price}$ For ${name} | Stock: ${stock}`;
+  alert(`${price}$ For ${name}`);
+  document.getElementById('payBtn').style.display = 'inline-block';
 }
-function confirmArmy() {
-    let val = document.getElementById('armySelect').value;
-    if (!val) { alert("Please select an army."); return; }
-    let prices = {CAMANDO: 8, KLAHOS: 5, DRTG: 3};
-    let modal = document.getElementById('modal');
-    let modalText = document.getElementById('modalText');
-    modalText.textContent = `Sure Buy This Army ${val}? Price: $${prices[val]}`;
-    modal.style.display = 'flex';
-    document.getElementById('modalCopy').onclick = () => {
-        navigator.clipboard.writeText("https://discord.gg/aZRAajFH");
-        alert("Discord link copied!");
-    };
+
+function showPayment() {
+  showScreen('payment');
+  document.getElementById('paymentTitle').innerText = `Sure Buy This Amry ${selectedArmy}?`;
+  document.getElementById('paymentDesc').innerHTML = `Press connect for payment.<br><br>Contact Discord: <a href="https://discord.gg/aZRAajFH" target="_blank">Join Here</a>`;
 }
-function closeModal() {
-    document.getElementById('modal').style.display = 'none';
-    document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+
+function copyDiscord() {
+  navigator.clipboard.writeText("https://discord.gg/aZRAajFH");
+  alert("Discord link copied!");
+}
+
+async function sendSupport() {
+  const text = document.getElementById("supportText").value;
+  const file = document.getElementById("supportFile").files[0];
+  if (!text && !file) { alert("Please type message or add photo!"); return; }
+
+  const webhook = "https://discord.com/api/webhooks/1404476294833504299/ASgT8yz0NrxfTX63zELTF7IZPcdBBTZMgeWxNUbdW2K142r2QUgYc-xLFEBvbco6l7vx";
+  const form = new FormData();
+  form.append("content", text || "Support request");
+
+  if (file) form.append("file", file);
+
+  await fetch(webhook, { method: "POST", body: form });
+  alert("Support sent successfully!");
+  document.getElementById("supportText").value = "";
+  document.getElementById("supportFile").value = "";
 }
