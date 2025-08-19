@@ -1,50 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Border War</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="style.css" rel="stylesheet" />
 </head>
 <body>
-  <header>
-    <img src="https://files.catbox.moe/5120ee.jpeg" alt="Logo">
-    <h1>Border War</h1>
+  <header class="site-header">
+    <div class="logo-wrap">
+      <img src="https://files.catbox.moe/5120ee.jpeg" alt="Border War Logo" class="logo" />
+      <h1 class="title">Border War</h1>
+    </div>
+    <nav class="nav">
+      <button class="nav-btn" data-target="home">Home</button>
+      <button class="nav-btn" data-target="support">Support</button>
+      <button class="nav-btn" data-target="army">AMRY BUY</button>
+      <button class="nav-btn" data-link="https://discord.gg/xPAjYmVQnW">Group</button>
+    </nav>
   </header>
 
-  <nav>
-    <button onclick="showScreen('support')">Support</button>
-    <button onclick="showScreen('army')">AMRY BUY</button>
-    <button onclick="window.open('https://discord.gg/xPAjYmVQnW','_blank')">Group</button>
-  </nav>
+  <!-- HOME -->
+  <main id="home" class="screen active">
+    <section class="hero card neon">
+      <h2 class="hero-title">Roblox Game Border [WAR]</h2>
+      <p class="hero-sub">Fight. Defend. Conquer. Join the Border War.</p>
+      <button class="btn big play-btn" data-link="https://www.roblox.com/games/103533286903210/Borders-WAR">
+        ▶ Play Game
+      </button>
+    </section>
+    <section class="menu-cards">
+      <div class="menu-card card neon" data-target="support">
+        <h3>Support</h3>
+        <p>Unban • Report Hacker • Contact Support</p>
+        <span class="linkish">Open</span>
+      </div>
+      <div class="menu-card card neon" data-target="army">
+        <h3>AMRY BUY</h3>
+        <p>Cambodia Amry: KAMANDO, BHQ, KLAHOS</p>
+        <span class="linkish">Open</span>
+      </div>
+      <a class="menu-card card neon" href="https://discord.gg/xPAjYmVQnW" target="_blank" rel="noopener">
+        <h3>Group</h3>
+        <p>Join our community on Discord</p>
+        <span class="linkish">Join</span>
+      </a>
+    </section>
+  </main>
 
-  <!-- Support Screen -->
-  <div id="support" class="screen">
-    <h2>Support Center</h2>
-    <p>Unban account • Report hacker • Contact support</p>
-    <textarea id="supportText" rows="5" placeholder="Type your support message..."></textarea><br>
-    <input type="file" id="supportFile" accept="image/*"><br>
-    <button class="main-btn" onclick="sendSupport()">Send Support</button>
-  </div>
+  <!-- SUPPORT -->
+  <section id="support" class="screen">
+    <div class="card neon">
+      <h2>Support Center</h2>
+      <p class="muted">Unbanned account • Report hacker • Contact support</p>
 
-  <!-- Army Buy Screen -->
-  <div id="army" class="screen">
-    <h2>Cambodia Amry</h2>
-    <div class="army-option" onclick="selectArmy('KAMANDO',5,18)">KAMANDO (Stock: 18)</div>
-    <div class="army-option" onclick="selectArmy('BHQ',3,14)">BHQ (Stock: 14)</div>
-    <div class="army-option" onclick="selectArmy('KLAHOS',2,10)">KLAHOS (Stock: 10)</div>
-    <p id="armyInfo"></p>
-    <button id="payBtn" class="main-btn" style="display:none;" onclick="showPayment()">Payment</button>
-    <br>
-    <button class="back-btn" onclick="showScreen('home')">Back</button>
-  </div>
+      <div class="support-form">
+        <label class="lbl">Message</label>
+        <textarea id="supportText" rows="6" placeholder="Type your support message (details, username, proof, etc.)"></textarea>
 
-  <!-- Payment Screen -->
-  <div id="payment" class="screen">
-    <h2 id="paymentTitle"></h2>
-    <p id="paymentDesc"></p>
-    <button class="main-btn" onclick="copyDiscord()">Copy Discord</button><br>
-    <button class="back-btn" onclick="showScreen('home')">Go Back Home</button>
-  </div>
+        <label class="lbl">Attach Photo (optional)</label>
+        <input id="supportFile" type="file" accept="image/*" />
+
+        <button id="sendSupportBtn" class="btn">Send Support</button>
+      </div>
+
+      <details class="howto">
+        <summary>📘 Tutorial: How to send support (click to open)</summary>
+        <ol>
+          <li>Write your issue (unban request, report hacker, or contact).</li>
+          <li>(Optional) Click “Attach Photo” to add screenshots/proofs.</li>
+          <li>Click “Send Support” — we’ll receive it on Discord.</li>
+        </ol>
+      </details>
+
+      <button class="btn ghost back-home" data-target="home">⬅ Back to Home</button>
+    </div>
+  </section>
+
+  <!-- AMRY BUY -->
+  <section id="army" class="screen">
+    <div class="card neon">
+      <h2>Cambodia Amry</h2>
+      <p class="muted">Select your unit below</p>
+
+      <div class="army-grid">
+        <button class="army-option btn ghost"
+          data-army="KAMANDO" data-price="5" data-stock="18">KAMANDO (Stock: 18)</button>
+        <button class="army-option btn ghost"
+          data-army="BHQ" data-price="3" data-stock="14">BHQ (Stock: 14)</button>
+        <button class="army-option btn ghost"
+          data-army="KLAHOS" data-price="2" data-stock="10">KLAHOS (Stock: 10)</button>
+      </div>
+
+      <p id="armyInfo" class="info"></p>
+      <button id="payBtn" class="btn" style="display:none;">Payment</button>
+
+      <button class="btn ghost back-home" data-target="home">⬅ Back</button>
+    </div>
+  </section>
+
+  <!-- PAYMENT -->
+  <section id="payment" class="screen">
+    <div class="card neon">
+      <h2 id="paymentTitle">Payment</h2>
+      <p id="paymentDesc" class="muted">Sure Buy This Amry <span id="armyNameHere">—</span>?<br/>Press connect for payment.</p>
+      <button id="connectBtn" class="btn">Connect</button>
+      <button class="btn ghost back-home" data-target="home">⬅ Back Home</button>
+    </div>
+  </section>
+
+  <!-- CONTACT AFTER CONNECT -->
+  <section id="contact" class="screen">
+    <div class="card neon">
+      <h2>Complete Your Purchase</h2>
+      <p>Contact us on Discord to finish the payment:</p>
+      <div class="discord-box">
+        <a class="btn link" href="https://discord.gg/aZRAajFH" target="_blank" rel="noopener">Open Discord</a>
+        <button id="copyDiscordBtn" class="btn ghost">Copy Discord Link</button>
+      </div>
+      <button class="btn ghost back-home" data-target="home">⬅ Back Home</button>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>© Border War</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
